@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <cstdio>
 
-bool Accountlist::Hashtable::Insert(char * chKey, char * chValue)
+bool Hashtable::Bucket::Insert(char * chKey, char * chValue)
 {
 	stACCOUNT* stAccount_New = new stACCOUNT;
 	strcpy_s(stAccount_New->chKey, chKey);
@@ -14,7 +14,7 @@ bool Accountlist::Hashtable::Insert(char * chKey, char * chValue)
 	return false;
 }
 
-bool Accountlist::Hashtable::Delete(char * chKey)
+bool Hashtable::Bucket::Delete(char * chKey)
 {
 	stNODE *pPrev = _pHead;
 	stNODE *pNode = _pHead->pNext;
@@ -34,7 +34,7 @@ bool Accountlist::Hashtable::Delete(char * chKey)
 	return false;
 }
 
-void Accountlist::Hashtable::Print()
+void Hashtable::Bucket::Print()
 {
 	stNODE* pNode = _pHead->pNext;
 	while (pNode != nullptr)
@@ -44,7 +44,7 @@ void Accountlist::Hashtable::Print()
 	}
 }
 
-bool Accountlist::Hashtable::SearchKey(char * chKey, stACCOUNT * chOutAccount)
+bool Hashtable::Bucket::SearchKey(char * chKey, stACCOUNT * chOutAccount)
 {
 	stNODE *pNode = _pHead->pNext;
 
@@ -63,7 +63,7 @@ bool Accountlist::Hashtable::SearchKey(char * chKey, stACCOUNT * chOutAccount)
 }
 
 
-bool Accountlist::Hashtable::SearchValue(char * chValue, stACCOUNT * chOutAccount)
+bool Hashtable::Bucket::SearchValue(char * chValue, stACCOUNT * chOutAccount)
 {
 	stNODE *pNode = _pHead->pNext;
 
@@ -81,7 +81,7 @@ bool Accountlist::Hashtable::SearchValue(char * chValue, stACCOUNT * chOutAccoun
 	return false;
 }
 
-void Accountlist::Hashtable::Hashing(char * szString, int * OutHashCode)
+void Hashtable::Bucket::Hashing(char * szString, int * OutHashCode)
 {
 	int i = 0;
 	unsigned int iHashCode = 0;
@@ -95,24 +95,24 @@ void Accountlist::Hashtable::Hashing(char * szString, int * OutHashCode)
 	*OutHashCode = iHashCode % 10;
 }
 
-Accountlist::Accountlist(int iHashTable_Cnt)
+Hashtable::Hashtable(int iHashTable_Cnt)
 {
 	_iHashTable_Cnt = iHashTable_Cnt;
 	for (int i = 0; i < _iHashTable_Cnt; ++i)
 	{
-		_Index[i] = new Hashtable;
+		_pBucket[i] = new Bucket;
 	}
 }
 
-Accountlist::~Accountlist()
+Hashtable::~Hashtable()
 {
 	for (int i = 0; i < _iHashTable_Cnt; ++i)
 	{
-		delete _Index[i];
+		delete _pBucket[i];
 	}
 }
 
-bool Accountlist::Insert(char* szInID, size_t iIDLen, char* szInName, size_t iNameLen)
+bool Hashtable::Insert(char* szInID, size_t iIDLen, char* szInName, size_t iNameLen)
 {
 	int iHashCode;
 
@@ -122,43 +122,43 @@ bool Accountlist::Insert(char* szInID, size_t iIDLen, char* szInName, size_t iNa
 	if (!Trim(szInName, iNameLen))
 		return false;
 
-	Hashtable::Hashing(szInID, &iHashCode);
-	if (_Index[iHashCode]->SearchKey(szInID))
+	Bucket::Hashing(szInID, &iHashCode);
+	if (_pBucket[iHashCode]->SearchKey(szInID))
 		return false;
 
 	for (int i = 0; i < df_HASHTABLE_CNT; ++i)
 	{
-		if (_Index[i]->SearchValue(szInName))
+		if (_pBucket[i]->SearchValue(szInName))
 			return false;
 	}
 
-	return _Index[iHashCode]->Insert(szInID, szInName);
+	return _pBucket[iHashCode]->Insert(szInID, szInName);
 }
 
-bool Accountlist::Delete(char* szInID)
+bool Hashtable::Delete(char* szInID)
 {
 	int iHashCode;
-	Hashtable::Hashing(szInID, &iHashCode);
-	return _Index[iHashCode]->Delete(szInID);
+	Bucket::Hashing(szInID, &iHashCode);
+	return _pBucket[iHashCode]->Delete(szInID);
 }
 
-void Accountlist::Print()
+void Hashtable::Print()
 {
 	for (int i = 0; i < 10; ++i)
 	{
 		printf("\n [%02d]", i);
-		_Index[i]->Print();
+		_pBucket[i]->Print();
 	}
 	printf("\n");
 }
 
-bool Accountlist::Search(char* szInID)
+bool Hashtable::Search(char* szInID)
 {
 	int iHashCode;
-	Hashtable::Hashing(szInID, &iHashCode);
+	Bucket::Hashing(szInID, &iHashCode);
 
 	stACCOUNT pAccount;
-	if (_Index[iHashCode]->SearchKey(szInID, &pAccount))
+	if (_pBucket[iHashCode]->SearchKey(szInID, &pAccount))
 	{
 		printf(" Name : %s\n", pAccount.chValue);
 		return true;
@@ -167,7 +167,7 @@ bool Accountlist::Search(char* szInID)
 	return false;
 }
 
-bool Accountlist::Trim(char* szString, size_t iSize)
+bool Hashtable::Trim(char* szString, size_t iSize)
 {
 	if (iSize == 0)
 		return false;

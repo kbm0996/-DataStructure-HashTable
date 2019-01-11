@@ -7,7 +7,7 @@ using namespace std;
 
 void main()
 {
-	Accountlist* AccountList = new Accountlist;
+	Hashtable* AccountManager = new Hashtable;
 	char chSelect;
 	char szInID[df_LEN_MAX];
 	char szInName[df_LEN_MAX];
@@ -17,7 +17,7 @@ void main()
 		system("cls");
 
 		printf("## HASH TABLE ##");
-		AccountList->Print();
+		AccountManager->Print();
 
 		printf("\n## MENU ##\n");
 		printf("1. ID »ý¼º\n");
@@ -35,7 +35,7 @@ void main()
 			printf(" Name : ");
 			gets_s(szInName, sizeof(szInName));
 
-			if (AccountList->Insert(szInID, strlen(szInID), szInName, strlen(szInName)))
+			if (AccountManager->Insert(szInID, strlen(szInID), szInName, strlen(szInName)))
 				printf(" Insert Success\n");
 			else
 				printf(" Insert Fail\n");
@@ -46,7 +46,7 @@ void main()
 			printf("ID : ");
 			gets_s(szInID, sizeof(szInID));
 
-			if (AccountList->Delete(szInID))
+			if (AccountManager->Delete(szInID))
 				printf(" Delete Success\n");
 			else
 				printf(" Delete Fail\n");
@@ -57,7 +57,7 @@ void main()
 			printf(" ID : ");
 			gets_s(szInID, sizeof(szInID));
 
-			AccountList->Search(szInID);
+			AccountManager->Search(szInID);
 			break;
 
 		case '4':
