@@ -23,22 +23,19 @@
 **Overflow** : 계산된 Home Address의 Bucket 내에 저장할 기억공간이 없는 상태로, Bucket을 구성하는 Slot이 여러개일때 Collision은 발생해도 Overflow는 발생하지 않을 수 있따.
 
 
-## 📌전역 변수
-### 🔧 ``WCHAR g_Dic[df_WORD_CNT][2][20];``
+## 📑 파일
+### 📋 SinglyLinkedlist.h
   좌측값을 우측값으로 대체하는데 사용되는 배열. df_WORD_CNT는 변환 가능한 단어 개수이고 2는 좌측값과 우측값의 한 쌍이며 20은 최대 글자 수를 의미한다.
 
-      WCHAR g_Dic[df_WORD_CNT][2][20] =
-      {
-        { L"i",L"나" },{ L"you",L"너" },{ L"like",L"좋아한다" },{ L"love",L"사랑한다" },{ L"hate", L"증오한다" },
-        { L"am",L"은/는" },{ L"are", L"은/는" },{L"is", L"은/는"}, { L"she", L"그녀" },{ L"he", L"그" },
-        { L"boy", L"소년" },{L"a",L""}, { L"an",L"" }
-      };
+
+### 📋 Hashtable.h - Hashtable.cpp
+  좌측값을 우측값으로 대체하는데 사용되는 배열. df_WORD_CNT는 변환 가능한 단어 개수이고 2는 좌측값과 우측값의 한 쌍이며 20은 최대 글자 수를 의미한다.
 
 
-
-### 🔧 ``WCHAR g_Buff[df_STRING_MAX_LENGTH / 2][df_STRING_MAX_LENGTH];``
-  변환에 성공했거나 실패한 단어들을 저장하는 임시 버퍼
-
+### 📋 Config.h
+  좌측값을 우측값으로 대체하는데 사용되는 배열. df_WORD_CNT는 변환 가능한 단어 개수이고 2는 좌측값과 우측값의 한 쌍이며 20은 최대 글자 수를 의미한다.
+  
+  
 
 ## 📌함수
 ### 🔧 ``void StringDivide(WCHAR* pInStr);``
