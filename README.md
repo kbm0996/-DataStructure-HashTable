@@ -22,8 +22,46 @@
 
 **Overflow** : 계산된 Home Address의 Bucket 내에 저장할 기억공간이 없는 상태로, Bucket을 구성하는 Slot이 여러개일때 Collision은 발생해도 Overflow는 발생하지 않을 수 있따.
 
+## ▶️ 프로그램 기능
+### 1. 삽입
 
-## 📑 파일
+  ![Program](https://github.com/kbm0996/HashTable/blob/master/picture/0insertbefore.png?raw=true)
+
+ **figure 1. 삽입 전*
+ 
+  ![Program](https://github.com/kbm0996/HashTable/blob/master/picture/0insertafter.png?raw=true)
+
+ **figure 2. 삽입 후*
+ 
+  ![Program](https://github.com/kbm0996/HashTable/blob/master/picture/1idduplication.png?raw=true)
+
+ **figure 3. ID 중복 처리*
+ 
+  ![Program](https://github.com/kbm0996/HashTable/blob/master/picture/2nameduplication.png?raw=true)
+
+ **figure 4. NAME 중복 처리*
+ 
+ 
+### 2. 삭제
+
+  ![Program](https://github.com/kbm0996/HashTable/blob/master/picture/3deletebefore.png?raw=true)
+
+ **figure 5. 삭제 전*
+ 
+  ![Program](https://github.com/kbm0996/HashTable/blob/master/picture/4deleteafter.png?raw=true)
+
+ **figure 6. 삭제 후*
+ 
+ 
+### 3. 검색
+
+  ![Program](https://github.com/kbm0996/HashTable/blob/master/picture/5search.png?raw=true)
+
+ **figure 7. ID를  NAME 검색*
+ 
+
+
+## 📑 구성
 ### 📋 Hashtable.h - Hashtable.cpp
   해시테이블(Hashtable) 클래스의 선언부와 정의부
   
@@ -37,7 +75,7 @@
   
   
 
-## 📌 주요 소스 코드
+## 📌 주요 소스
 ### 📋 Hashtable.h/cpp
     class Hashtable
     {
