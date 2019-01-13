@@ -6,13 +6,13 @@
 class Hashtable
 {
 protected:
-	struct stACCOUNT
+	struct stSLOT
 	{
 		char chKey[df_LEN_MAX];		// ID
 		char chValue[df_LEN_MAX];	// NAME
 	};
 
-	class Bucket : protected Linkedlist<stACCOUNT*>
+	class Bucket : protected Linkedlist<stSLOT*>
 	{
 	public:
 		Bucket() {}
@@ -22,8 +22,8 @@ protected:
 		bool Delete(char* chKey);
 
 		void Print();
-		bool SearchKey(char* chKey, stACCOUNT * chOutAccount = nullptr);
-		bool SearchValue(char* chValue, stACCOUNT * chOutAccount = nullptr);
+		bool SearchKey(char* chKey, stSLOT * chOutAccount = nullptr);
+		bool SearchValue(char* chValue, stSLOT * chOutAccount = nullptr);
 
 	private:
 		friend class Hashtable;

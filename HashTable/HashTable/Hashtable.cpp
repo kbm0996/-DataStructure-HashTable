@@ -5,11 +5,11 @@
 
 bool Hashtable::Bucket::Insert(char * chKey, char * chValue)
 {
-	stACCOUNT* stAccount_New = new stACCOUNT;
-	strcpy_s(stAccount_New->chKey, chKey);
-	strcpy_s(stAccount_New->chValue, chValue);
+	stSLOT* stSLOT_New = new stSLOT;
+	strcpy_s(stSLOT_New->chKey, chKey);
+	strcpy_s(stSLOT_New->chValue, chValue);
 
-	if(push_front(&stAccount_New))
+	if(push_front(&stSLOT_New))
 		return true;
 	return false;
 }
@@ -44,7 +44,7 @@ void Hashtable::Bucket::Print()
 	}
 }
 
-bool Hashtable::Bucket::SearchKey(char * chKey, stACCOUNT * chOutAccount)
+bool Hashtable::Bucket::SearchKey(char * chKey, stSLOT * chOutAccount)
 {
 	stNODE *pNode = _pHead->pNext;
 
@@ -63,7 +63,7 @@ bool Hashtable::Bucket::SearchKey(char * chKey, stACCOUNT * chOutAccount)
 }
 
 
-bool Hashtable::Bucket::SearchValue(char * chValue, stACCOUNT * chOutAccount)
+bool Hashtable::Bucket::SearchValue(char * chValue, stSLOT * chOutAccount)
 {
 	stNODE *pNode = _pHead->pNext;
 
@@ -157,7 +157,7 @@ bool Hashtable::Search(char* szInID)
 	int iHashCode;
 	Bucket::Hashing(szInID, &iHashCode);
 
-	stACCOUNT pAccount;
+	stSLOT pAccount;
 	if (_pBucket[iHashCode]->SearchKey(szInID, &pAccount))
 	{
 		printf(" Name : %s\n", pAccount.chValue);
