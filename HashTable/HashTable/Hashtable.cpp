@@ -126,7 +126,7 @@ bool Hashtable::Insert(char* szInID, size_t iIDLen, char* szInName, size_t iName
 	if (_pBucket[iHashCode]->SearchKey(szInID))
 		return false;
 
-	for (int i = 0; i < df_HASHTABLE_CNT; ++i)
+	for (int i = 0; i < df_BUCKET_CNT; ++i)
 	{
 		if (_pBucket[i]->SearchValue(szInName))
 			return false;

@@ -32,7 +32,7 @@ protected:
 	};
 
 public:
-	Hashtable(int iHashTable_Cnt = df_HASHTABLE_CNT);
+	Hashtable(int iHashTable_Cnt = df_BUCKET_CNT);
 	virtual ~Hashtable();
 
 	bool Insert(char* szInID, size_t iIDLen, char* szInName, size_t iNameLen);
@@ -44,7 +44,7 @@ private:
 	bool Trim(char* szString, size_t iSize);
 
 	int _iHashTable_Cnt;
-	Bucket* _pBucket[df_HASHTABLE_CNT];
+	Bucket* _pBucket[df_BUCKET_CNT];
 
 };
 
