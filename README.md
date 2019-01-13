@@ -24,44 +24,71 @@
 
 
 ## 📑 파일
-### 📋 SinglyLinkedlist.h
-  좌측값을 우측값으로 대체하는데 사용되는 배열. df_WORD_CNT는 변환 가능한 단어 개수이고 2는 좌측값과 우측값의 한 쌍이며 20은 최대 글자 수를 의미한다.
-
-
 ### 📋 Hashtable.h - Hashtable.cpp
-  좌측값을 우측값으로 대체하는데 사용되는 배열. df_WORD_CNT는 변환 가능한 단어 개수이고 2는 좌측값과 우측값의 한 쌍이며 20은 최대 글자 수를 의미한다.
+  해시테이블(Hashtable) 클래스의 선언부와 정의부
+  
+  
+### 📋 SinglyLinkedlist.h
+  해시테이블 클래스의 내부 클래스인 버킷(Bucket) 클래스 구현에 필요한 링크드 리스트 선언 및 정의
 
 
 ### 📋 Config.h
-  좌측값을 우측값으로 대체하는데 사용되는 배열. df_WORD_CNT는 변환 가능한 단어 개수이고 2는 좌측값과 우측값의 한 쌍이며 20은 최대 글자 수를 의미한다.
+  해시테이블 내 버킷 개수와 입력할 수 있는 문자열의 최대 길이를 하드코딩으로 지정
   
   
 
-## 📌함수
-### 🔧 ``void StringDivide(WCHAR* pInStr);``
-  구분자로 단어를 추출하는 함수.
-  
-  1. 인자 (Parameters)
-  >const WCHAR* pInStr
+## 📌 주요 소스 코드
+### 📋 Hashtable.h/cpp
+    class Hashtable
+    {
+    protected:
+      struct stSLOT
+      {
+        char chKey[df_LEN_MAX];	// ID
+        char chValue[df_LEN_MAX];	// NAME
+      };
 
-  단어를 추출할 원본 문자열 
+      class Bucket : protected Linkedlist<stSLOT*>
+      {
+      public:
+        Bucket() {}
+        virtual ~Bucket() {}
+
+        bool Insert(char* chKey, char* chValue);
+        bool Delete(char* chKey);
+
+        void Print();
+        bool SearchKey(char* chKey, stSLOT * chOutAccount = nullptr);  // Key로 Value 검색
+        bool SearchValue(char* chValue, stSLOT * chOutAccount = nullptr); // Value로 Key 검색
+
+      private:
+        friend class Hashtable;
+        // TODO: ID의 ASCII의 총합을 시드값으로 사용. 출력값을 리스트의 인덱스로 사용
+        static void Hashing(char* szString, int *OutHashCode);
+      };
+
+    public:
+      Hashtable(int iHashTable_Cnt = df_BUCKET_CNT);
+      virtual ~Hashtable();
+
+      bool Insert(char* szInID, char* szInName);
+      bool Delete(char* szInID);
+      // Hashtable 내 모든 Bucket에 있는 Slot의 Data를 콘솔창에 출력
+      void Print();
+      bool Search(char* szInID);
+
+    private:
+      int _iHashTable_Cnt;
+      Bucket* _pBucket[df_BUCKET_CNT];
+
+    };
+
+
+
+### 📋 SinglyLinkedlist.h
+  편의상 싱글 링크드리스트를 사용함. 이미 검증된 STL의 list를 사용해도 됨.
+
+
+ ## 📌 이미지 및 설명 출처 
  
-  2. 주요 레퍼런스
- - 문자열 복사 **wcsncpy_s();**
-
- 최대 지정한 길이만큼 NULL문자를 만날때까지 문자열을 복사하는 함수
-
-
-### 🔧 ``void StringConverse(WCHAR* pInStr, WCHAR* pOutStr);``
-  g_Dic[][][]에 저장된 단어들을 검색하여 치환시켜주는 함수
-  
-  1. 인자 (Parameters)
-  >const wstring& pInStr
-
-  단어를 변경할 문자열 
- 
-  >WCHAR* pOutStr
-  
-  변경된 문자열을 저장할 
-      
-      
+ 개요 - https://coding-factory.tistory.com
