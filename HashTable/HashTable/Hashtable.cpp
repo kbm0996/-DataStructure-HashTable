@@ -92,7 +92,7 @@ void Hashtable::Bucket::Hashing(char * szString, int * OutHashCode)
 		++i;
 	}
 
-	*OutHashCode = iHashCode % 10;
+	*OutHashCode = iHashCode % df_BUCKET_CNT;
 }
 
 Hashtable::Hashtable(int iHashTable_Cnt)
