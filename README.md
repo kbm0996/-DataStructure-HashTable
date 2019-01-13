@@ -89,6 +89,6 @@
   편의상 싱글 링크드리스트를 사용함. 이미 검증된 STL의 list를 사용해도 됨.
 
 
- ## 📌 이미지 및 설명 출처 
+ ## 📌 출처 
  
  개요 - https://coding-factory.tistory.com
